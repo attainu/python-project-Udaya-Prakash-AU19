@@ -1,4 +1,4 @@
-# Steps to create a project:
+# Steps to create a Maze Solver:
 
 a) Create classes for separate entities
 
