@@ -17,7 +17,8 @@ class BFS:
         adj_y = [0, -1, 1, 0]
         possibilities = len(adj_x)
         queue = deque()
-        check_grid = Tracer(self.start, 0)
+        visiting_path = [(self.start.x, self.start.y)]
+        check_grid = Tracer(self.start, 0, visiting_path)
         queue.append(check_grid)
         cost = 0
         
@@ -25,9 +26,8 @@ class BFS:
             current_block = queue.popleft()     # deque from the queue and checking the possibble ways
             current_pos = current_block.pos  
             if current_pos.x == self.dest.x and current_pos.y == self.dest.y:
-                print("Maze solved")
-                print("Total visited steps = ", cost)
-                return current_block.cost
+
+                return (current_block.cost, cost, current_block.path)
         
             if current_block not in visited_blocks:
                 visited_blocks[current_pos.x][current_pos.y] = True
@@ -45,7 +45,9 @@ class BFS:
                 if cur_x < m and cur_y < n and cur_x >= 0 and cur_y >= 0:
                     if self.matrix[cur_x][cur_y] == 1:
                         if not visited_blocks[cur_x][cur_y]:
-                            next_cell = Tracer(Maze(cur_x, cur_y), current_block.cost + 1)
+                            my_path = current_block.path.copy()
+                            next_cell = Tracer(Maze(cur_x, cur_y), current_block.cost + 1, my_path)
+                            my_path.append((cur_x, cur_y))
                             visited_blocks[cur_x][cur_y] = True
                             queue.append(next_cell)
         return -1
