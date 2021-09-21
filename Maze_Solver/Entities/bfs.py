@@ -17,7 +17,7 @@ class BFS:
         adj_y = [0, -1, 1, 0]
         possibilities = len(adj_x)
         queue = deque()
-        visiting_path = [(self.start.x, self.start.y)]
+        visiting_path = [(self.start.x, self.start.y)]  # storing the current path as tuple
         check_grid = Tracer(self.start, 0, visiting_path)
         queue.append(check_grid)
         cost = 0
@@ -25,8 +25,8 @@ class BFS:
         while queue:
             current_block = queue.popleft()     # deque from the queue and checking the possibble ways
             current_pos = current_block.pos  
+            
             if current_pos.x == self.dest.x and current_pos.y == self.dest.y:
-
                 return (current_block.cost, cost, current_block.path)
         
             if current_block not in visited_blocks:
@@ -45,36 +45,9 @@ class BFS:
                 if cur_x < m and cur_y < n and cur_x >= 0 and cur_y >= 0:
                     if self.matrix[cur_x][cur_y] == 1:
                         if not visited_blocks[cur_x][cur_y]:
-                            my_path = current_block.path.copy()
+                            my_path = current_block.path.copy() # copying the path traced till current
                             next_cell = Tracer(Maze(cur_x, cur_y), current_block.cost + 1, my_path)
                             my_path.append((cur_x, cur_y))
                             visited_blocks[cur_x][cur_y] = True
                             queue.append(next_cell)
         return -1
-
-# def main():
-#     # matrix = [[1, 0, 0, 0],
-#     #           [1, 1, 0, 1],
-#     #           [0, 1, 0, 0],
-#     #           [1, 1, 1, 1]]
-
-#     matrix = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-#               [0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0],
-#               [0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0],
-#               [0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 0],
-#               [0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1],
-#               [0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-#               [0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-#               [0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
-#               [0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0],
-#               [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0],
-#               [1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0],
-#               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-#     start = Maze(10, 0)
-#     destination = Maze(4, 11)
-#     result = BFS(matrix, start, destination)
-#     result.BFSf()
-#     if result != -1:
-#         print("Shortest path steps = ", result)
-#     else:
-#         print("Path doesn't exist")
