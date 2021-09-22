@@ -8,9 +8,17 @@ if __name__ == '__main__':
               [1, 1, 0, 1],
               [0, 1, 0, 0],
               [1, 1, 1, 1]]
-              
-    start = Maze(0, 0)
-    destination = Maze(3, 3)
+
+    print("Enter the source:")
+    sx = int(input("Source x co-ordinate here: "))
+    sy = int(input("Source y co-ordinate here: "))
+    
+    print("Enter the destination:")
+    dx = int(input("Destination x co-ordinate here: "))
+    dy = int(input("Destination y co-ordinate here: "))
+
+    start = Maze(sx, sy)
+    destination = Maze(dx, dy)
     result = BFS(matrix, start, destination)
     solution = result.BFSf()
     
